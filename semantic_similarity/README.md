@@ -1,38 +1,171 @@
-상표권 문제를 위한
+# Trademark Semantic Similarity Analysis
 
-**시각적 특징 분석 + 개념적 의미 이해**를 결합한 하이브리드 이미지 검색 모델
+AI-powered trademark analysis system using Azure OpenAI and semantic embeddings to compare trademark images and detect similarity.
 
-## 🎯 개요
+## 🎯 Overview
 
-두 가지 상이한 접근 방식으로 이미지 유사도를 측정합니다:
+This project analyzes trademark images using GPT-5.1 vision capabilities and generates semantic embeddings to:
+- Generate detailed text descriptions from trademark images
+- Create semantic embeddings for similarity comparison
+- Calculate similarity scores between target and candidate trademarks
+- Generate comprehensive analysis reports
 
-| 모델 | 기술 | 특징 | 사용 사례 |
-|------|------|------|---------|
-| **시각적 모델** | ResNet50 Triplet Network | 색상, 형태, 레이아웃 기반 | 로고 매칭, 제품 이미지 검색 |
-| **관념적 모델** | [설명: 의미론적 특징] | 이미지의 개념/의도 파악 | 카테고리 분류, 컨텍스트 검색 |
+### Key Features
+- **Vision-based Analysis**: Uses Azure OpenAI's GPT-5.1 to analyze trademark images
+- **Semantic Embeddings**: Converts descriptions to embeddings using text-embedding-3-large
+- **Similarity Scoring**: Calculates cosine similarity between trademark embeddings
+- **Batch Processing**: Handles multiple trademark comparisons efficiently
+- **Configurable**: Easy environment-based configuration
 
-## 📁 프로젝트 구조
-├── visual_model/ # 시각적 특징 모델
-│ ├── model_utils.py
-│ ├── db_example.py
-│ └── README.md (상세 문서)
-├── conceptual_model/ # 관념적 개념 모델
-│ ├── [파일 구조]
-│ └── README.md (상세 문서)
-└── INTEGRATION.md # 두 모델 통합 가이드
+---
 
+## 📋 Requirements
 
-## 🚀 빠른 시작
+- Python 3.8+
+- Azure OpenAI API access
+- Internet connection for API calls
 
-각 모델의 README를 참고하세요:
-- [시각적 모델 가이드](./visual_model/README.md)
-- [관념적 모델 가이드](./conceptual_model/README.md)
+## 🚀 Quick Start
 
-## 💡 하이브리드 사용법
-
-```python
-# 1단계: 시각적 유사도 계산
-# 2단계: 관념적 유사도 계산
-# 3단계: 가중 평균으로 최종 점수 도출
+### 1. Clone & Setup
+```bash
+git clone https://github.com/yeyounglim-01/semanticmodel.git
+cd semanticmodel
+python -m venv venv
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # macOS/Linux
+pip install -r requirements.txt
 ```
-더 자세한 정보는 각 모델의 README 문서를 참고해주세요.
+
+### 2. Configure Environment
+```bash
+cp .env.example .env
+# Edit .env with your Azure OpenAI credentials
+```
+
+### 3. Run Analysis
+```bash
+python trademark_analysis.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+semanticmodel/
+├── config.py                         # Configuration management
+├── trademark_analysis.py             # Main analysis logic
+├── compare.py                        # Similarity comparison
+├── requirements.txt                  # Python dependencies
+├── .env.example                      # Environment template
+├── .gitignore                        # Git exclusions
+├── README.md                         # Project documentation
+├── docs_SETUP_GUIDE_KO.md           # Korean setup guide
+├── 00_GITHUB_UPLOAD_CHECKLIST.md    # Upload checklist & guide
+└── GITHUB_GUIDELINE.md              # File analysis guidelines
+```
+
+---
+
+## 📊 How It Works
+
+1. **Image Analysis**: GPT-5.1 analyzes trademark images and generates descriptions
+2. **Embeddings**: Text descriptions are converted to semantic vectors
+3. **Similarity**: Cosine similarity calculates likeness between trademarks
+4. **Results**: Rankings saved to CSV/JSON format
+
+---
+
+## 💡 Usage Examples
+
+### Basic Analysis
+```python
+from compare import analyze_similarity
+
+results = analyze_similarity("data.jsonl")
+print(results)
+```
+
+### Output Format
+```json
+{
+  "TARGET_logo.jpg": [
+    ("candidate1.jpg", 0.95),
+    ("candidate2.jpg", 0.87)
+  ]
+}
+```
+
+---
+
+## 🔧 Configuration
+
+Edit `.env` file with your settings:
+
+```env
+# Azure OpenAI Configuration
+AZURE_API_KEY=your_actual_api_key_here
+AZURE_API_VERSION=2024-05-01-preview
+AZURE_ENDPOINT=https://your-resource-name.openai.azure.com/
+
+# Model Configuration
+MODEL_NAME=gpt-5.1-chat
+EMBEDDING_MODEL=text-embedding-3-large
+
+# Path Configuration
+TARGET_DIR=./test_images/target
+CANDIDATE_DIR=./test_images/candidates
+OUTPUT_FILE=data.jsonl
+
+# Rate Limit (seconds)
+SLEEP_TIME=0.5
+```
+
+---
+
+## 🔐 Security
+
+- API keys stored in `.env` (never committed)
+- `.gitignore` prevents accidental credential leaks
+- All sensitive data managed via environment variables
+
+---
+
+## 📚 Additional Documentation
+
+- **[docs_SETUP_GUIDE_KO.md](docs_SETUP_GUIDE_KO.md)** - Korean setup guide
+- **[00_GITHUB_UPLOAD_CHECKLIST.md](00_GITHUB_UPLOAD_CHECKLIST.md)** - Complete checklist
+- **[GITHUB_GUIDELINE.md](GITHUB_GUIDELINE.md)** - File analysis guide
+
+---
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| AZURE_API_KEY error | Check `.env` file exists with valid key |
+| Image not found | Verify `TARGET_DIR` and `CANDIDATE_DIR` paths |
+| API timeout | Check internet connection, increase `SLEEP_TIME` |
+| ModuleNotFoundError | Run `pip install -r requirements.txt` |
+
+---
+
+## 📧 Support
+
+For questions or issues, please open an issue on GitHub.
+
+---
+
+## 📝 License
+
+MIT License
+
+---
+
+## Version History
+
+- **v1.0** (March 2026): Initial release
+  - Trademark image analysis
+  - Similarity comparison
+  - CSV/JSON reporting
