@@ -60,9 +60,9 @@ semanticmodel/
 Each module contains its own documentation explaining implementation details and usage.
 
 ---
-## 💻 Models
+# 💻 Models
 
-### Semantic Similarity Model
+## Semantic Similarity Model
 The semantic similarity model analyzes the **conceptual meaning of trademarks** using text embeddings.
 
 Process:
@@ -77,7 +77,7 @@ semantic_similarity/README.md
 ````
 
 ---
-### Visual Similarity Model
+# Visual Similarity Model
 The visual similarity model compares trademarks based on their **visual appearance.**
 
 The model extracts visual features from trademark images and computes similarity scores between feature vectors.
@@ -92,21 +92,21 @@ More details are available in:
 ````
 visual_similarity/README.md
 ````
-### Technology Stack
+# Technology Stack
 * Python <br>
 * PyTorch <br>
 * OpenAI / Embedding Models <br>
 * Computer Vision(CNN) <br>
 * Vector Similarity Search
 ----
-### Applications
+# Applications
 This systen can be used for:
 * Trademark infringement detection <br>
 * Trademark monitoring systems <br>
 * Intellectual property analysis <br>
 * Brand protection services
 ----
-### License
+# License
 This project is licensed under the MIT License.
 
 <img width="996" height="633" alt="image" src="https://github.com/user-attachments/assets/67407ac0-b9ab-45e0-9351-2f4b293344fd" />
